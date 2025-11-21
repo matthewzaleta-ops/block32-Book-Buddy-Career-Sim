@@ -11,3 +11,24 @@ body {
 }
 
 /* Add your own custom styles here */
+
+nav > a {
+  margin: 0.5rem;
+  color: rgb(33, 114, 69);
+  display: inline-block;
+  vertical-align: middle;
+}
+
+nav > img {
+  max-width: 30px;
+  margin-right: 10px;
+}
+
+#loginForm {
+  display: flex;
+  flex-direction: column;
+}
+
+#loginForm > label {
+  padding: 0.25rem;
+}

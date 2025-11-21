@@ -1,0 +1,28 @@
+.booksContainer {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+}
+
+.book {
+  margin: 1rem;
+  background-color: rgb(231, 229, 229);
+  max-width: 400px;
+  max-height: 120px;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+}
+
+.book > img {
+  width: 72px;
+  height: 108px;
+  padding: 0.25rem;
+}
+
+.singleBook {
+}
+
+.singleBook > img {
+  max-width: 147px;
+}

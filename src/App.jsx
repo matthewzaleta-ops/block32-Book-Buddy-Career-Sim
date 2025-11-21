@@ -6,6 +6,7 @@ import axios from "axios";
 import { Routes, Route } from "react-router";
 import Layout from "./Layout";
 import Login from "./Auth/Login";
+import Register from "./Auth/Register";
 
 function App() {
   const [books, setBooks] = useState([]);
@@ -13,13 +14,13 @@ function App() {
 
   const authenticate = async () => {
     try {
+      const token = window.localStorage.getItem("token");
+
       const { data } = await axios.get(
         "https://fsa-book-buddy-b6e748d1380d.herokuapp.com/api/users/me",
         {
           headers: {
-            Authorization: `Bearer ${token}``${window.localStorage.getItem(
-              "token"
-            )}`,
+            Authorization: `Bearer ${token}`,
           },
         }
       );
@@ -50,11 +51,15 @@ function App() {
     <div>
       <p>Book Buddy</p>
       <Routes>
-        <Route element={<Layout user={user} />}>
+        <Route element={<Layout user={user} setUser={setUser} />}>
           <Route index element={<Books books={books} />} />
           <Route path="/allBooks" element={<Books books={books} />} />
           <Route path="/allBooks/:id" element={<SingleBook books={books} />} />
-          <Route path="/login" element={<Login />} />
+          <Route
+            path="/login"
+            element={<Login authenticate={authenticate} />}
+          />
+          <Route path="/register" element={<Register />} />
         </Route>
       </Routes>
     </div>

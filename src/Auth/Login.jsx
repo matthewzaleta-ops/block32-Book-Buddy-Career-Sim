@@ -1,6 +1,8 @@
 import axios from "axios";
+import { useNavigate } from "react-router";
 
-const Login = () => {
+const Login = ({ authenticate }) => {
+  const navigate = useNavigate();
   const login = async (formData) => {
     const email = formData.get("email");
     const password = formData.get("password");
@@ -14,6 +16,8 @@ const Login = () => {
         user
       );
       window.localStorage.setItem("token", data.token);
+      authenticate();
+      navigate("/");
     } catch (error) {
       console.error(error);
     }

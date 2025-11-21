@@ -1,7 +1,11 @@
 import { Link } from "react-router";
 import "./App.css";
 
-const NavBar = ({ user }) => {
+const NavBar = ({ user, setUser }) => {
+  const logout = () => {
+    window.localStorage.removeItem("token");
+    setUser({});
+  };
   return (
     <nav>
       <img src="public\books.png"></img>
@@ -10,12 +14,14 @@ const NavBar = ({ user }) => {
       {user.id ? (
         <span>
           <Link>Account</Link>
-          <Link>Logout</Link>
+          <Link onClick={logout} to="/">
+            Logout
+          </Link>
         </span>
       ) : (
         <span>
           <Link to="/login">Login</Link>
-          <Link>Register</Link>
+          <Link to="/register">Register</Link>
         </span>
       )}
     </nav>

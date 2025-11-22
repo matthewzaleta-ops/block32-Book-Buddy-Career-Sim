@@ -12,6 +12,7 @@ import Account from "./Auth/Account";
 function App() {
   const [books, setBooks] = useState([]);
   const [user, setUser] = useState({});
+  const [reservations, setReservations] = useState({});
 
   const authenticate = async () => {
     try {
@@ -30,6 +31,24 @@ function App() {
       console.error(error);
     }
   };
+
+  useEffect(() => {
+    const fetchReservations = async () => {
+      const token = window.localStorage.getItem("token");
+      const { data } = await axios.get(
+        "https://fsa-book-buddy-b6e748d1380d.herokuapp.com/api/reservations",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      setReservations(data);
+    };
+    if (window.localStorage.getItem("token")) {
+      fetchReservations();
+    }
+  }, [user.id]);
 
   useEffect(() => {
     if (window.localStorage.getItem("token")) {
@@ -61,7 +80,12 @@ function App() {
             element={<Login authenticate={authenticate} />}
           />
           <Route path="/register" element={<Register />} />
-          <Route path="/Account" element={<Account user={user} />} />
+          <Route
+            path="/Account"
+            element={
+              <Account user={user} reservations={user.reservations || []} />
+            }
+          />
         </Route>
       </Routes>
     </div>

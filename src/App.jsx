@@ -7,6 +7,7 @@ import { Routes, Route } from "react-router";
 import Layout from "./Layout";
 import Login from "./Auth/Login";
 import Register from "./Auth/Register";
+import Account from "./Auth/Account";
 
 function App() {
   const [books, setBooks] = useState([]);
@@ -49,7 +50,7 @@ function App() {
 
   return (
     <div>
-      <p>Book Buddy</p>
+      {user.id ? <h3>Welcome Back, {user.firstname}!</h3> : null}
       <Routes>
         <Route element={<Layout user={user} setUser={setUser} />}>
           <Route index element={<Books books={books} />} />
@@ -60,6 +61,7 @@ function App() {
             element={<Login authenticate={authenticate} />}
           />
           <Route path="/register" element={<Register />} />
+          <Route path="/Account" element={<Account user={user} />} />
         </Route>
       </Routes>
     </div>

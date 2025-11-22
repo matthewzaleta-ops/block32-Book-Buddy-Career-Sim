@@ -6,6 +6,7 @@ const Login = ({ authenticate }) => {
   const login = async (formData) => {
     const email = formData.get("email");
     const password = formData.get("password");
+
     const user = {
       email,
       password,

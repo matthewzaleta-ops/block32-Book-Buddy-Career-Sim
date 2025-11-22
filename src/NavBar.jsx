@@ -13,7 +13,7 @@ const NavBar = ({ user, setUser }) => {
       <Link to="allBooks">Books</Link>
       {user.id ? (
         <span>
-          <Link>Account</Link>
+          <Link to="/Account">Account</Link>
           <Link onClick={logout} to="/">
             Logout
           </Link>

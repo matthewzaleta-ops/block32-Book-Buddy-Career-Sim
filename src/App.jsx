@@ -12,7 +12,7 @@ import Account from "./Auth/Account";
 function App() {
   const [books, setBooks] = useState([]);
   const [user, setUser] = useState({});
-  const [reservations, setReservations] = useState({});
+  const [reservations, setReservations] = useState([]);
 
   const authenticate = async () => {
     try {
@@ -27,6 +27,41 @@ function App() {
         }
       );
       setUser(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const reserveBook = async (id) => {
+    try {
+      const token = window.localStorage.getItem("token");
+
+      const { data } = await axios.post(
+        "https://fsa-book-buddy-b6e748d1380d.herokuapp.com/api/reservations",
+        { bookId: id },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      setReservations([...reservations, data]);
+    } catch (error) {
+      console.error("Reserve error:", error.response?.data || error);
+      alert(error.response?.data?.message || "Reservation failed");
+    }
+  };
+
+  const removeReservation = async (id) => {
+    try {
+      await axios.delete(
+        `https://fsa-book-buddy-b6e748d1380d.herokuapp.com/api/reservations/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
     } catch (error) {
       console.error(error);
     }
@@ -48,13 +83,13 @@ function App() {
     if (window.localStorage.getItem("token")) {
       fetchReservations();
     }
-  }, [user.id]);
+  }, []);
 
   useEffect(() => {
     if (window.localStorage.getItem("token")) {
       authenticate();
     }
-  }, [user.id]);
+  }, []);
 
   useEffect(() => {
     const fetchAllBooks = async () => {
@@ -72,9 +107,18 @@ function App() {
       {user.id ? <h3>Welcome Back, {user.firstname}!</h3> : null}
       <Routes>
         <Route element={<Layout user={user} setUser={setUser} />}>
-          <Route index element={<Books books={books} />} />
-          <Route path="/allBooks" element={<Books books={books} />} />
-          <Route path="/allBooks/:id" element={<SingleBook books={books} />} />
+          <Route
+            index
+            element={<Books books={books} reserveBook={reserveBook} />}
+          />
+          <Route
+            path="/allBooks"
+            element={<Books books={books} reserveBook={reserveBook} />}
+          />
+          <Route
+            path="/allBooks/:id"
+            element={<SingleBook books={books} reserveBook={reserveBook} />}
+          />
           <Route
             path="/login"
             element={<Login authenticate={authenticate} />}
@@ -83,7 +127,11 @@ function App() {
           <Route
             path="/Account"
             element={
-              <Account user={user} reservations={user.reservations || []} />
+              <Account
+                user={user}
+                reservations={reservations || []}
+                removeReservation={removeReservation}
+              />
             }
           />
         </Route>

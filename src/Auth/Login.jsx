@@ -37,7 +37,9 @@ const Login = ({ authenticate }) => {
           <br />
           <input type="password" name="password" />
         </label>
-        <button type="submit">Login</button>
+        <button type="submit" className="loginButton">
+          Login
+        </button>
         <p>Need an account? Register here.</p>
       </form>
     </div>

@@ -3,6 +3,7 @@ body {
   background-color: #f8f8f8;
   margin: 0;
   padding: 0;
+  max-width: 600px;
 }
 
 #logo-image {
@@ -12,7 +13,20 @@ body {
 
 /* Add your own custom styles here */
 
+nav {
+  display: flex;
+  vertical-align: middle;
+  margin: 0.25rem;
+}
+
 nav > a {
+  margin: 0.5rem;
+  color: rgb(33, 114, 69);
+  display: inline-block;
+  vertical-align: middle;
+}
+
+span > a {
   margin: 0.5rem;
   color: rgb(33, 114, 69);
   display: inline-block;
@@ -34,4 +48,13 @@ nav > img {
 }
 
 .reservationsContainer {
+}
+
+.bookBuddy {
+  font-weight: bold;
+}
+
+.loginButton {
+  width: 180px;
+  margin-top: 0.5rem;
 }

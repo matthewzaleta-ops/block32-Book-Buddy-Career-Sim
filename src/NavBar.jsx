@@ -7,19 +7,21 @@ const NavBar = ({ user, setUser }) => {
     setUser({});
   };
   return (
-    <nav>
+    <nav className="navContainer">
       <img src="public\books.png"></img>
-      <Link to="/">Book Buddy</Link>
+      <Link to="/" className="bookBuddy">
+        Book Buddy
+      </Link>
       <Link to="allBooks">Books</Link>
       {user.id ? (
-        <span>
+        <span className="span">
           <Link to="/Account">Account</Link>
           <Link onClick={logout} to="/">
             Logout
           </Link>
         </span>
       ) : (
-        <span>
+        <span className="span">
           <Link to="/login">Login</Link>
           <Link to="/register">Register</Link>
         </span>

@@ -48,7 +48,9 @@ const Register = () => {
           <input type="password" name="password" />
         </label>
 
-        <button type="submit">Login</button>
+        <button type="submit" className="loginButton">
+          Login
+        </button>
       </form>
     </div>
   );

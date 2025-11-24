@@ -4,7 +4,7 @@ import "./App.css";
 
 const Layout = ({ user, setUser }) => {
   return (
-    <div>
+    <div className="appMain">
       <NavBar user={user} setUser={setUser} />
       <hr />
       <div>

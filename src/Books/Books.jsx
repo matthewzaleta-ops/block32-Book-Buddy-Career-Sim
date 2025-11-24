@@ -1,7 +1,7 @@
 import "./books.css";
 import { Link } from "react-router";
 
-const Books = ({ books }) => {
+const Books = ({ books, reserveBook }) => {
   return (
     <div className="booksContainer">
       <h1>Catalog</h1>

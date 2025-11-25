@@ -13,7 +13,7 @@ const Account = ({ user, reservations = [], removeReservation }) => {
           {reservations.map((res) => (
             <div className="reservedBook" key={res.id}>
               <Link to={`/allBooks/${res.bookid}`}>
-                <h4>{res.title}</h4>
+                <p>{res.title}</p>
               </Link>
 
               <p>{res.author}</p>

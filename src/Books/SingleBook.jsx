@@ -1,6 +1,6 @@
 import { useParams, Link } from "react-router";
 
-const SingleBook = ({ books, reserveBook }) => {
+const SingleBook = ({ books, reserveBook, reservations }) => {
   const { id } = useParams();
 
   const singleBook = books.find((book) => {
@@ -11,6 +11,8 @@ const SingleBook = ({ books, reserveBook }) => {
     return <div>Loading...</div>;
   }
 
+  const alreadyReserved = reservations.some((r) => r.bookid === singleBook.id);
+
   return (
     <div className="singleBook">
       <img src={singleBook.coverimage} />
@@ -18,11 +20,12 @@ const SingleBook = ({ books, reserveBook }) => {
       <p>{singleBook.author}</p>
       <p>{singleBook.description}</p>
       <button
+        disabled={alreadyReserved}
         onClick={() => {
           reserveBook(singleBook.id);
         }}
       >
-        Reserve this book
+        {alreadyReserved ? "Book already reserved" : "Reserve Book"}
       </button>
       <div>
         <Link to="/allBooks">Back to Catalog</Link>

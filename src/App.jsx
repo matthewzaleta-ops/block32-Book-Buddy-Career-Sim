@@ -54,6 +54,10 @@ function App() {
 
   const removeReservation = async (id) => {
     try {
+      const token = window.localStorage.getItem("token");
+      if (!token) {
+        throw new Error("No auth token found. Please log in.");
+      }
       await axios.delete(
         `https://fsa-book-buddy-b6e748d1380d.herokuapp.com/api/reservations/${id}`,
         {
@@ -62,8 +66,10 @@ function App() {
           },
         }
       );
+      setReservations((prev) => prev.filter((r) => r.id !== id));
     } catch (error) {
-      console.error(error);
+      console.error("Remove reservation error:", error.response?.data || error);
+      alert(error.response?.data?.message || "Could not return book.");
     }
   };
 
@@ -109,15 +115,33 @@ function App() {
         <Route element={<Layout user={user} setUser={setUser} />}>
           <Route
             index
-            element={<Books books={books} reserveBook={reserveBook} />}
+            element={
+              <Books
+                books={books}
+                reserveBook={reserveBook}
+                reservations={reservations}
+              />
+            }
           />
           <Route
             path="/allBooks"
-            element={<Books books={books} reserveBook={reserveBook} />}
+            element={
+              <Books
+                books={books}
+                reserveBook={reserveBook}
+                reservations={reservations}
+              />
+            }
           />
           <Route
             path="/allBooks/:id"
-            element={<SingleBook books={books} reserveBook={reserveBook} />}
+            element={
+              <SingleBook
+                books={books}
+                reserveBook={reserveBook}
+                reservations={reservations}
+              />
+            }
           />
           <Route
             path="/login"

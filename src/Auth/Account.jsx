@@ -11,7 +11,7 @@ const Account = ({ user, reservations = [], removeReservation }) => {
       {reservations.length > 0 ? (
         <div>
           {reservations.map((res) => (
-            <div className="book" key={res.id}>
+            <div className="reservedBook" key={res.id}>
               <Link to={`/allBooks/${res.bookid}`}>
                 <h4>{res.title}</h4>
               </Link>
